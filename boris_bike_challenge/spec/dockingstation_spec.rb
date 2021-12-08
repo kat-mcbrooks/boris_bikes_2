@@ -1,5 +1,5 @@
-require docking_station.rb
+require 'docking_station'
 
 describe DockingStation do
-  it "releases a bike if it is working"
+  it { is_expected.to respond_to :release_bike }
 end
