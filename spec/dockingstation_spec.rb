@@ -3,9 +3,19 @@ require 'docking_station'
 describe DockingStation do
   it { is_expected.to respond_to :release_bike }
 
-  it 'releases working bikes' do
-    bike = subject.release_bike # can also use Bike.new here
-    expect(bike).to be_working
+  describe '#release_bike' do
+    it 'releases a bike' do
+      bike = Bike.new 
+      subject.dock(bike) 
+      expect(subject.release_bike).to eq bike   
+    end
+  end
+
+  describe '#release_bike' do
+   it "raises an error if no bikes available" do
+    # no bikes at docking station
+    expect { subject.release_bike }.to raise_error("No bikes here!") 
+   end 
   end
 
   it { is_expected.to respond_to(:dock).with(1).argument } # tests that docking station instances respond to dock method with one argument e.g. (bike)
@@ -21,16 +31,16 @@ describe DockingStation do
     expect(subject.bike).to eq bike
   end
 
-  it "charges the user and does not raise an error" do
-    bike = Bike.new 
-    subject.dock(bike) 
-    expect { subject.charge }.to_not raise_error 
-  end
+
+
+
+  # it "charges the user and does not raise an error" do
+  #   bike = Bike.new 
+  #   subject.dock(bike) 
+  #   expect { subject.charge }.to_not raise_error 
+  # end
   
-  it "Tries to charge user and raises an error" do
-    # no bikes at docking station
-    expect { subject.charge }.to raise_error("No bikes here!") 
-  end
+  
 
 end
 
